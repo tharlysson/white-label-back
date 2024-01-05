@@ -10,4 +10,4 @@ step_decorators: ~
 
 coverage:
     include:
-        - src/Cliente/*
+        - src/Produto/*

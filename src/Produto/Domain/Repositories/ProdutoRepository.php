@@ -16,7 +16,7 @@ interface ProdutoRepository
 
     public function save(Produto $produto): void;
 
-    public function delete(Uuid $id): void;
+    public function delete(Uuid $id): bool;
 
     public function update(Produto $produto): void;
 

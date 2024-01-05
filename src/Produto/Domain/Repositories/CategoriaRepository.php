@@ -16,7 +16,7 @@ interface CategoriaRepository
 
     public function save(Categoria $categoria): void;
 
-    public function delete(Uuid $id): void;
+    public function delete(Uuid $id): bool;
 
     public function update(Categoria $categoria): void;
 
