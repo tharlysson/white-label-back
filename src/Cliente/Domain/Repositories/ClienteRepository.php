@@ -18,7 +18,7 @@ interface ClienteRepository
 
     public function save(Cliente $cliente): void;
 
-    public function delete(Uuid $id): void;
+    public function delete(Uuid $id): bool;
 
     public function update(Cliente $cliente): void;
 }

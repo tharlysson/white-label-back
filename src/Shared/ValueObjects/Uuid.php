@@ -27,14 +27,6 @@ class Uuid
         $this->value = $value;
     }
 
-    /**
-     * @throws InvalidValueException
-     */
-    public static function newId(): static
-    {
-        return new static(value: UuidType::uuid4()->toString());
-    }
-
     public function __toString(): string
     {
         return $this->value;

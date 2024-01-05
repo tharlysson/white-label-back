@@ -58,13 +58,16 @@ class ClienteMemory implements ClienteRepository
         $this->clientes[] = $cliente;
     }
 
-    public function delete(Uuid $id): void
+    public function delete(Uuid $id): bool
     {
         foreach ($this->clientes as $key => $cliente) {
             if ($cliente->getId()->equals($id)) {
                 unset($this->clientes[$key]);
+                return true;
             }
         }
+
+        return false;
     }
 
     public function update(Cliente $cliente): void

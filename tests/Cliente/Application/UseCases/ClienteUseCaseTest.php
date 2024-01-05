@@ -6,6 +6,7 @@ use App\Cliente\Application\UseCases\ClienteUseCase;
 use App\Cliente\Domain\Entities\Cliente;
 use App\Cliente\Infra\Repositories\Memory\ClienteMemory;
 use App\Cliente\Presentation\DTO\ClienteInput;
+use App\Shared\ValueObjects\Uuid;
 use Codeception\Test\Unit;
 
 class ClienteUseCaseTest extends Unit
@@ -33,5 +34,82 @@ class ClienteUseCaseTest extends Unit
         $this->assertTrue(is_array($return));
         $this->assertTrue(count($return) == 3);
         $this->assertInstanceOf(Cliente::class, reset($return));
+    }
+
+    public function testRetornarPorId()
+    {
+        $clienteUseCase = new ClienteUseCase();
+        $return = $clienteUseCase->findById(
+            new Uuid('bde3aca1-8151-40fb-891f-99cce03d79ff'),
+            new ClienteMemory()
+        );
+
+        $this->assertInstanceOf(Cliente::class, $return);
+        $this->assertEquals('João', $return->getNome());
+    }
+
+    public function testAtualizarCliente()
+    {
+        $clienteUseCase = new ClienteUseCase();
+        $return = $clienteUseCase->update(
+            new Uuid('bde3aca1-8151-40fb-891f-99cce03d79ff'),
+            new ClienteInput(
+                nome: 'Teste',
+                email: 'XXXXXXXXXXXXXXX',
+                dataNascimento: new \DateTime('1990-01-01')
+            ),
+            new ClienteMemory()
+        );
+
+        $this->assertInstanceOf(Cliente::class, $return);
+        $this->assertEquals('XXXXXXXXXXXXXXX', $return->getEmail());
+        $this->assertEquals(new \DateTime('1990-01-01'), $return->getDataNascimento());
+    }
+
+    function testAtualizarClienteInexistente()
+    {
+        $clienteUseCase = new ClienteUseCase();
+        $return = $clienteUseCase->update(
+            new Uuid(),
+            new ClienteInput(
+                nome: 'Teste',
+                email: 'XXXXXXXXXXXXXXX',
+                dataNascimento: new \DateTime('1990-01-01')
+            ),
+            new ClienteMemory()
+        );
+
+        $this->assertNull($return);
+    }
+
+    function testDeletarCliente()
+    {
+        $repositorio = new ClienteMemory();
+        $clienteUseCase = new ClienteUseCase();
+        $return = $clienteUseCase->delete(
+            new Uuid('bde3aca1-8151-40fb-891f-99cce03d79ff'),
+            $repositorio
+        );
+
+        $this->assertTrue($return);
+
+        $return = $clienteUseCase->findById(
+            new Uuid('bde3aca1-8151-40fb-891f-99cce03d79ff'),
+            $repositorio
+        );
+
+        $this->assertNull($return);
+    }
+
+    function testDeletarClienteInexistente()
+    {
+        $repositorio = new ClienteMemory();
+        $clienteUseCase = new ClienteUseCase();
+        $return = $clienteUseCase->delete(
+            new Uuid(),
+            $repositorio
+        );
+
+        $this->assertFalse($return);
     }
 }
