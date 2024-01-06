@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Produto\Domain\Entities;
 
+use App\Shared\Exceptions\DomainException;
 use App\Shared\ValueObjects\Uuid;
 use DateTime;
 
@@ -128,9 +129,14 @@ final class Produto
 
     /**
      * @codeCoverageIgnore
+     * @throws DomainException
      */
     public function setEstoque(?float $estoque): void
     {
+        if ($estoque < 0) {
+            throw new DomainException('O estoque não pode ser menor que 0.');
+        }
+
         $this->estoque = $estoque;
     }
 

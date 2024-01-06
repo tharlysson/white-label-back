@@ -57,4 +57,11 @@ class ClienteUseCase
     {
         return $repository->delete($id);
     }
+
+    public function atualizarSaldo(Cliente $cliente, float $total, ClienteRepository $clienteRepository): void
+    {
+        $cliente->setSaldo($cliente->getSaldo() - $total);
+
+        $clienteRepository->update($cliente);
+    }
 }

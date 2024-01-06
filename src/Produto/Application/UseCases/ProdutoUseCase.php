@@ -7,6 +7,7 @@ namespace App\Produto\Application\UseCases;
 use App\Produto\Domain\Entities\Produto;
 use App\Produto\Domain\Repositories\ProdutoRepository;
 use App\Produto\Presentation\DTO\ProdutoInput;
+use App\Shared\Exceptions\DomainException;
 use App\Shared\ValueObjects\Uuid;
 
 class ProdutoUseCase
@@ -38,6 +39,9 @@ class ProdutoUseCase
         return $repository->findById($id);
     }
 
+    /**
+     * @throws DomainException
+     */
     public function update(Uuid $id, ProdutoInput $produto, ProdutoRepository $repository): ?Produto
     {
         $produtoRepo = $repository->findById($id);
@@ -60,5 +64,22 @@ class ProdutoUseCase
     public function delete(Uuid $id, ProdutoRepository $repository): bool
     {
         return $repository->delete($id);
+    }
+
+    /**
+     * @throws DomainException
+     */
+    public function baixarEstoque(Uuid $id, float $quantidade, ProdutoRepository $repository): bool
+    {
+        $produto = $this->findById($id, $repository);
+
+        if ($produto === null || $produto->getEstoque() < $quantidade) {
+            return false;
+        }
+
+        $produto->setEstoque($produto->getEstoque() - $quantidade);
+        $repository->update($produto);
+
+        return true;
     }
 }

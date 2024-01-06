@@ -23,6 +23,7 @@ class ProdutoMemory implements ProdutoRepository
             nome: 'Coca-Cola',
             descricao: 'Coca-Cola lata 350ml',
             valorVarejo: 3.50,
+            estoque: 10,
             categoria: new Categoria(
                 id: new Uuid('8dcdbb34-0016-4830-9b5b-42bfc7cc8a98'),
                 dataCriacao: new \DateTime('2020-12-02'),
@@ -37,6 +38,7 @@ class ProdutoMemory implements ProdutoRepository
             nome: 'Arroz',
             descricao: 'Arroz integral 1kg',
             valorVarejo: 5.50,
+            estoque: 20,
             categoria: new Categoria(
                 id: new Uuid('796c902d-142e-4409-9d7d-df82f711ac80'),
                 dataCriacao: new \DateTime('2020-12-02'),
@@ -50,6 +52,7 @@ class ProdutoMemory implements ProdutoRepository
             nome: 'Pinho Sol',
             descricao: 'Pinho Sol 1L',
             valorVarejo: 7.50,
+            estoque: 10,
             categoria: new Categoria(
                 id: new Uuid('486752c0-adbc-47a8-924b-1608ab7d6788'),
                 dataCriacao: new \DateTime('2020-12-02'),

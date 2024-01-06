@@ -13,6 +13,7 @@ final class Cliente
         protected readonly Uuid $id = new Uuid(),
         protected readonly DateTime $dataCriacao = new DateTime(),
         protected string $nome = '',
+        protected float $saldo = 0.0,
         protected ?string $email = null,
         protected ?DateTime $dataNascimento = null,
         protected ?string $documento = null,
@@ -165,5 +166,21 @@ final class Cliente
     public function setDataExclusao(?DateTime $dataExclusao): void
     {
         $this->dataExclusao = $dataExclusao;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getSaldo(): float
+    {
+        return $this->saldo;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function setSaldo(float $saldo): void
+    {
+        $this->saldo = $saldo;
     }
 }
