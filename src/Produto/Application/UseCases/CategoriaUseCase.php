@@ -11,10 +11,10 @@ use App\Shared\ValueObjects\Uuid;
 
 class CategoriaUseCase
 {
-    public function save(CategoriaInput $cliente, CategoriaRepository $repository): string
+    public function save(CategoriaInput $categoria, CategoriaRepository $repository): string
     {
         $categoriaObj = new Categoria(
-            nome: $cliente->nome
+            nome: $categoria->nome
         );
 
         $repository->save(
@@ -34,7 +34,7 @@ class CategoriaUseCase
         return $repository->findById($id);
     }
 
-    public function update(Uuid $id, CategoriaInput $cliente, CategoriaRepository $repository): ?Categoria
+    public function update(Uuid $id, CategoriaInput $categoria, CategoriaRepository $repository): ?Categoria
     {
         $categoriaRepo = $repository->findById($id);
 
@@ -42,7 +42,7 @@ class CategoriaUseCase
             return null;
         }
 
-        $categoriaRepo->setNome($cliente->nome);
+        $categoriaRepo->setNome($categoria->nome);
 
         $repository->update($categoriaRepo);
 
