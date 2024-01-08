@@ -66,7 +66,7 @@ class ClienteUseCaseTest extends Unit
         $this->assertEquals(new \DateTime('1990-01-01'), $return->getDataNascimento());
     }
 
-    function testAtualizarClienteInexistente()
+    public function testAtualizarClienteInexistente()
     {
         $clienteUseCase = new ClienteUseCase();
         $return = $clienteUseCase->update(
@@ -82,7 +82,7 @@ class ClienteUseCaseTest extends Unit
         $this->assertNull($return);
     }
 
-    function testDeletarCliente()
+    public function testDeletarCliente()
     {
         $repositorio = new ClienteMemory();
         $clienteUseCase = new ClienteUseCase();
@@ -101,7 +101,7 @@ class ClienteUseCaseTest extends Unit
         $this->assertNull($return);
     }
 
-    function testDeletarClienteInexistente()
+    public function testDeletarClienteInexistente()
     {
         $repositorio = new ClienteMemory();
         $clienteUseCase = new ClienteUseCase();
@@ -111,5 +111,24 @@ class ClienteUseCaseTest extends Unit
         );
 
         $this->assertFalse($return);
+    }
+
+    public function testAtualizarSaldo()
+    {
+        $repositorio = new ClienteMemory();
+        $clienteUseCase = new ClienteUseCase();
+        $cliente = $clienteUseCase->findById(
+            new Uuid('bde3aca1-8151-40fb-891f-99cce03d79ff'),
+            $repositorio
+        );
+
+        $clienteUseCase->atualizarSaldo($cliente, 100, $repositorio);
+
+        $cliente = $clienteUseCase->findById(
+            new Uuid('bde3aca1-8151-40fb-891f-99cce03d79ff'),
+            $repositorio
+        );
+
+        $this->assertEquals(900, $cliente->getSaldo());
     }
 }

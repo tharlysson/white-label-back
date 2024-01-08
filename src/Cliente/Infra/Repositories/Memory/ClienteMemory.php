@@ -19,6 +19,7 @@ class ClienteMemory implements ClienteRepository
             id: new Uuid('bde3aca1-8151-40fb-891f-99cce03d79ff'),
             dataCriacao: new \DateTime('2020-12-02'),
             nome: 'João',
+            saldo: 1000,
             email: 'joao@email.com'
         );
 

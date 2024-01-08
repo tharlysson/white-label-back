@@ -61,7 +61,7 @@ class CategoriaUseCaseTest extends Unit
         $this->assertEquals('Teste', $return->getNome());
     }
 
-    function testAtualizarCategoriaInexistente()
+    public function testAtualizarCategoriaInexistente()
     {
         $categoriaUseCase = new CategoriaUseCase();
         $return = $categoriaUseCase->update(
@@ -75,7 +75,7 @@ class CategoriaUseCaseTest extends Unit
         $this->assertNull($return);
     }
 
-    function testDeletarCategoria()
+    public function testDeletarCategoria()
     {
         $repositorio = new CategoriaMemory();
         $categoriaUseCase = new CategoriaUseCase();
@@ -94,7 +94,7 @@ class CategoriaUseCaseTest extends Unit
         $this->assertNull($return);
     }
 
-    function testDeletarCategoriaInexistente()
+    public function testDeletarCategoriaInexistente()
     {
         $repositorio = new CategoriaMemory();
         $categoriaUseCase = new CategoriaUseCase();

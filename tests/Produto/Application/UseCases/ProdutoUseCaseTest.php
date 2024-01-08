@@ -65,7 +65,7 @@ class ProdutoUseCaseTest extends Unit
         $this->assertEquals('Teste', $return->getNome());
     }
 
-    function testAtualizarProdutoInexistente()
+    public function testAtualizarProdutoInexistente()
     {
         $produtoUseCase = new ProdutoUseCase();
         $return = $produtoUseCase->update(
@@ -79,7 +79,7 @@ class ProdutoUseCaseTest extends Unit
         $this->assertNull($return);
     }
 
-    function testDeletarProduto()
+    public function testDeletarProduto()
     {
         $repositorio = new ProdutoMemory();
         $produtoUseCase = new ProdutoUseCase();
@@ -98,7 +98,7 @@ class ProdutoUseCaseTest extends Unit
         $this->assertNull($return);
     }
 
-    function testDeletarProdutoInexistente()
+    public function testDeletarProdutoInexistente()
     {
         $repositorio = new ProdutoMemory();
         $produtoUseCase = new ProdutoUseCase();
